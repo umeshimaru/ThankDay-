@@ -1,12 +1,14 @@
 import Name from './Name'
 import { useState ,createContext} from 'react'
 import Button from './Button'
+export const MyCompornent = createContext("");
 
 
 
 const Winner = () => {
   const [isWinnerShown, setIsWinnerShown] = useState(false)
   const [stopShuffle, setStopShuffle] = useState(false)
+  const [winner, changeWinner] = useState("")
 
   const members = [
     { name: 'まつかわX仙台のフルリモートエンジニア' },
@@ -45,6 +47,8 @@ const Winner = () => {
     if(stopShuffle){ 
       setStopShuffle(prev => !prev)
     }
+    const randomIndex = Math.floor(Math.random() * members.length)
+    changeWinner(winner => ({ ...winner, name: members[randomIndex].name }))
   }
 
   return (
@@ -52,10 +56,12 @@ const Winner = () => {
       <div>
         <h1>毎月1日は感謝Day</h1>
         <p>今月の当選者</p>
-        {isWinnerShown && <Name members={members} stopShuffle={stopShuffle} />}
-        <Button title="スタート" eventType={start} />
-        <Button title="ストップ" eventType={stop}/>
-        <Button title="もう一度" eventType={restart}/>
+        <MyCompornent.Provider value={[winner, changeWinner]}>
+          {isWinnerShown && <Name members={members}   stopShuffle={stopShuffle} />}
+          <Button title="スタート" eventType={start} />
+          <Button title="ストップ" eventType={stop}/>
+          <Button title="もう一度" eventType={restart}/>
+        </MyCompornent.Provider>
       </div>
     </>
   )

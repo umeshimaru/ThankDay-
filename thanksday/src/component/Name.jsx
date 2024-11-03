@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect,useContext } from 'react'
+import { MyCompornent } from './Winner'
 
 const Name = ({ members ,stopShuffle}) => {
-  const [winner, changeWinner] = useState({ name: members[0].name })
+  const [winner, changeWinner] = useContext(MyCompornent)
 
   // stopを押された後にスタート押したらwinnerをまた更新する。そうしないと２回目以降のスタートが機能しない
 
