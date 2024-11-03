@@ -1,9 +1,13 @@
 import Name from './Name'
-import { useState } from 'react'
+import { useState ,createContext} from 'react'
 import Button from './Button'
+
+
 
 const Winner = () => {
   const [isWinnerShown, setIsWinnerShown] = useState(false)
+  const [stopShuffle, setStopShuffle] = useState(false)
+
   const members = [
     { name: 'まつかわX仙台のフルリモートエンジニア' },
     { name: 'padoさん' },
@@ -27,17 +31,31 @@ const Winner = () => {
   ]
 
   const start = () => {
-    setIsWinnerShown((prev) => !prev)
+    setIsWinnerShown((prev) => true)
+    if(stopShuffle){ 
+      setStopShuffle(prev => !prev)
+      
+    }
   }
+
+  const stop = () => {
+    setStopShuffle((prev) => !prev)
+  }
+  const restart = () => {
+    if(stopShuffle){ 
+      setStopShuffle(prev => !prev)
+    }
+  }
+
   return (
     <>
       <div>
         <h1>毎月1日は感謝Day</h1>
         <p>今月の当選者</p>
-        {isWinnerShown && <Name members={members} />}
+        {isWinnerShown && <Name members={members} stopShuffle={stopShuffle} />}
         <Button title="スタート" eventType={start} />
-        <Button title="ストップ" />
-        <Button title="もう一度" />
+        <Button title="ストップ" eventType={stop}/>
+        <Button title="もう一度" eventType={restart}/>
       </div>
     </>
   )
