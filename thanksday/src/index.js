@@ -1,7 +1,7 @@
 //手順１:ReactとReactDOMのライブラリーをインポート(import)する。
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Winner from './component/Winner'
+import Winner from './winner/Winner'
 
 //手順2:index.htmlファイルの<div id="root">要素への参照を取得する。
 //index.htmlファイルの<div id="root">要素を取得します。
